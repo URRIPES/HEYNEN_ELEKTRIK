@@ -287,6 +287,7 @@ footer{border-top:1.5px solid var(--ink);padding-block:26px 40px;color:var(--mut
 (function(){
 var F=document.getElementById('aiF'),P=document.getElementById('aiP'),M=document.getElementById('aiM'),O=document.getElementById('aiO'),I=document.getElementById('aiI'),T=document.getElementById('aiT'),PH=document.getElementById('aiP2');
 var TEL1='02161 9029478',TEL2='0176 48662589',MAIL='info@elektrotechnik-heynen.de';
+function mkId(){var n=new Date(),p=function(x){return String(x).slice(-2).padStart(2,'0')},day=String(n.getFullYear()).slice(-2)+p(n.getMonth()+1)+p(n.getDate()),k='hn-'+day,c=1;try{c=(parseInt(localStorage.getItem(k),10)||0)+1;localStorage.setItem(k,c)}catch(e){c=Math.floor(Math.random()*90)+1}return 'HE-'+day+'-'+String(c).padStart(3,'0')}
 var started=false,d={},hist=[],cur=null,busy=false,rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
 var CAT={stoerung:'Störung / Defekt',neubau:'Neubau, Umbau, Installation',kaelte:'Kältetechnik',lueftung:'Lüftungstechnik',wartung:'Prüfung / Wartung',sonstiges:'Sonstiges'};
 var DET={
@@ -383,22 +384,23 @@ function goBack(){
  if(s==='detail'||s==='cat'){delete d.detail}
  add('u','‹ Zurück');next()}
 async function summary(){
- cur='done';busy=true;clearO();
+ cur='done';busy=true;clearO();d.id=mkId();
  await bot('Danke'+(d.name?', '+d.name.split(' ')[0]:'')+'. Ich habe alles notiert:');
  var c=el('div','mg b ai-card');var dl=el('dl');
- var rows=[['Anliegen',d.cat],['Details',d.detail],['Für wen',d.who],['Ort',d.where],['Dringlichkeit',d.urg],['Hinweis',d.note&&d.note!=='–'?d.note:'keiner'],['Foto',d.photo==='ja'?'liegt bei':'keines'],['Name',d.name],['Kontakt',d.contact],['Rückruf',d.cb]];
+ var rows=[['Nr.',d.id],['Anliegen',d.cat],['Details',d.detail],['Für wen',d.who],['Ort',d.where],['Dringlichkeit',d.urg],['Hinweis',d.note&&d.note!=='–'?d.note:'keiner'],['Foto',d.photo==='ja'?'liegt bei':'keines'],['Name',d.name],['Kontakt',d.contact],['Rückruf',d.cb]];
  rows.forEach(function(r){var a=el('dt',null,r[0]),b=el('dd',null,r[1]||'–');if(r[0]==='Dringlichkeit'&&/^Akut/.test(r[1]||''))b.className='ak';dl.appendChild(a);dl.appendChild(b)});
  c.appendChild(dl);if(d.thumb){var im=new Image();im.alt='Foto zur Anfrage';im.src=d.thumb;c.appendChild(im)}
  M.appendChild(c);sc();
  var akut=/^Akut/.test(d.urg||'');
+ await bot('Ihre Anfragenummer: '+d.id+'. Mit dieser Nummer können Sie später Angaben ergänzen, Wunschtermine ändern oder die Anfrage zurückziehen.');
  await bot(akut?'Weil es eilig ist, rufen Sie bitte zusätzlich an: '+TEL1+' oder '+TEL2+'.':'Das Team meldet sich bei Ihnen.');
- await bot('Hinweis zur Demo: Es wird nichts gesendet. In der Live-Version geht diese Karte sofort per E-Mail oder Nachricht an das Team. Mit KI-Anbindung versteht der Assistent auch freie Texte, wertet Fotos aus und stellt passende Rückfragen.','note');
+ await bot('Hinweis zur Demo: Es wird nichts gesendet, die Nummer ist nur ein Beispiel. In der Live-Version würde sie fest vergeben und gespeichert. Dann geht die Karte sofort per E-Mail oder Nachricht an das Team. Mit KI-Anbindung versteht der Assistent auch freie Texte, wertet Fotos aus und stellt passende Rückfragen.','note');
  busy=false;
  opts([['E-Mail-Vorschau',mailPreview],['Neue Anfrage',reset]])}
 function mailPreview(){
  if(busy)return;var akut=/^Akut/.test(d.urg||'');
- var subj=(akut?'[AKUT] ':'')+d.cat+' · '+d.who+' · '+d.where;
- var body='An: '+MAIL+'\nBetreff: '+subj+'\n\nAnliegen: '+d.cat+'\nDetails: '+d.detail+'\nFür wen: '+d.who+'\nOrt: '+d.where+'\nDringlichkeit: '+d.urg+'\nHinweis: '+(d.note&&d.note!=='–'?d.note:'keiner')+'\nFoto: '+(d.photo==='ja'?'angehängt':'keines')+'\n\nName: '+d.name+'\nKontakt: '+d.contact+'\nRückruf: '+d.cb;
+ var subj=(akut?'[AKUT] ':'')+d.id+' · '+d.cat+' · '+d.who+' · '+d.where;
+ var body='An: '+MAIL+'\nBetreff: '+subj+'\n\nNummer: '+d.id+'\nAnliegen: '+d.cat+'\nDetails: '+d.detail+'\nFür wen: '+d.who+'\nOrt: '+d.where+'\nDringlichkeit: '+d.urg+'\nHinweis: '+(d.note&&d.note!=='–'?d.note:'keiner')+'\nFoto: '+(d.photo==='ja'?'angehängt':'keines')+'\n\nName: '+d.name+'\nKontakt: '+d.contact+'\nRückruf: '+d.cb;
  add('u','E-Mail-Vorschau');var e=add('b mail',body);opts([['Neue Anfrage',reset]])}
 async function say(t){return bot(t)}
 async function reply(slotAsk,t){await bot(t);busy=false;if(slotAsk){cur=null;showOpts()}}
