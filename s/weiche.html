@@ -171,6 +171,13 @@ body::after{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;back
 @keyframes pf{to{stroke-dashoffset:-400}}@keyframes psp{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.plate .p1,.plate .sp{animation:none}}
 
+.split a,.tl.go,.tl.tel,.opt,.bigtel,.thm,.ai-o button,.sos,.ai-fab{overflow:hidden;isolation:isolate}
+.split a,.tl.go,.tl.tel,.opt,.bigtel,.thm,.ai-o button{position:relative}
+.split a::after,.tl.go::after,.tl.tel::after,.opt::after,.bigtel::after,.thm::after,.ai-o button::after,.sos::after,.ai-fab::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);translate:-130% 0;transition:translate .7s cubic-bezier(.2,.7,.2,1)}
+.split a::after,.tl.go::after,.tl.tel::after,.opt::after,.bigtel::after,.thm::after,.ai-o button::after{background:linear-gradient(110deg,transparent 30%,color-mix(in srgb,currentColor 16%,transparent) 50%,transparent 70%)}
+.split a:hover::after,.tl.go:hover::after,.tl.tel:hover::after,.opt:hover::after,.bigtel:hover::after,.thm:hover::after,.ai-o button:hover::after,.sos:hover::after,.ai-fab:hover::after,.btn:active::after,.split a:active::after,.tl.go:active::after,.tl.tel:active::after,.opt:active::after,.bigtel:active::after,.thm:active::after,.ai-o button:active::after,.sos:active::after,.ai-fab:active::after,.btn:focus-visible::after,.sos:focus-visible::after,.ai-fab:focus-visible::after{translate:130% 0}
+@media(prefers-reduced-motion:reduce){.split a::after,.tl.go::after,.tl.tel::after,.opt::after,.bigtel::after,.thm::after,.ai-o button::after,.sos::after,.ai-fab::after{display:none}}
+
 
 :root{color-scheme:dark;--paper:#141517;--panel:#1e2023;--panel2:#292c30;--ink:#f1f2f3;--mut:#a9adb1;--rule:#383b3f;--night:#0b0c0d;--gbg:#0b0c0d;--lit:#222427;--nmut:#8f959a;--red:#d42f22;--redh:#c42d21;--lk:#000;--ls:#e8eaeb}
 :root[data-theme="light"]{color-scheme:light;--paper:#d8dbdd;--panel:#eceeef;--panel2:#f7f8f8;--ink:#121416;--mut:#4a5055;--rule:#b2b7bb;--night:#4d5257;--gbg:#e3e6e8;--lit:#f1f2f3;--nmut:#d2d6d9;--red:#cf2a20;--redh:#b3221a;--lk:#241c1e;--ls:#3a3838}

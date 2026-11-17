@@ -171,6 +171,13 @@ body::after{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;back
 @keyframes pf{to{stroke-dashoffset:-400}}@keyframes psp{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.plate .p1,.plate .sp{animation:none}}
 
+.split a,.tl.go,.tl.tel,.opt,.bigtel,.thm,.ai-o button,.sos,.ai-fab{overflow:hidden;isolation:isolate}
+.split a,.tl.go,.tl.tel,.opt,.bigtel,.thm,.ai-o button{position:relative}
+.split a::after,.tl.go::after,.tl.tel::after,.opt::after,.bigtel::after,.thm::after,.ai-o button::after,.sos::after,.ai-fab::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.3) 50%,transparent 70%);translate:-130% 0;transition:translate .7s cubic-bezier(.2,.7,.2,1)}
+.split a::after,.tl.go::after,.tl.tel::after,.opt::after,.bigtel::after,.thm::after,.ai-o button::after{background:linear-gradient(110deg,transparent 30%,color-mix(in srgb,currentColor 16%,transparent) 50%,transparent 70%)}
+.split a:hover::after,.tl.go:hover::after,.tl.tel:hover::after,.opt:hover::after,.bigtel:hover::after,.thm:hover::after,.ai-o button:hover::after,.sos:hover::after,.ai-fab:hover::after,.btn:active::after,.split a:active::after,.tl.go:active::after,.tl.tel:active::after,.opt:active::after,.bigtel:active::after,.thm:active::after,.ai-o button:active::after,.sos:active::after,.ai-fab:active::after,.btn:focus-visible::after,.sos:focus-visible::after,.ai-fab:focus-visible::after{translate:130% 0}
+@media(prefers-reduced-motion:reduce){.split a::after,.tl.go::after,.tl.tel::after,.opt::after,.bigtel::after,.thm::after,.ai-o button::after,.sos::after,.ai-fab::after{display:none}}
+
 
 :root{color-scheme:dark;--fb:"Sora","Helvetica Neue",Arial,sans-serif;--fd:"Sora",Arial,sans-serif;
 --paper:#17181a;--panel:#212326;--ink:#eff0f1;--mut:#a7abaf;--rule:#34373a;--night:#0d0e0f;--lit:#1d1f21;--nmut:#92979b;--red:#d42f22;--redh:#bf2b20;--lk:#000;--ls:#e8eaeb;--rad:10px;--cab:#4a4e52;--cab2:#6b7076}
