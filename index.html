@@ -60,7 +60,7 @@ var S=[
 ['konfigurator','Konfigurator','Anfrage in 4 Schritten gleich im Einstieg']];
 var $=function(i){return document.getElementById(i)};
 var fr=$('fr'),dr=$('dr'),sh=$('sh'),cur=$('cur'),ls=$('ls'),hint=$('hint'),k=0;
-var V='20261117a';function file(n){return 's/'+n+'.html?v='+V}
+var V='20261118a';function file(n){return 's/'+n+'.html?v='+V}
 function get(){try{return localStorage.getItem('skin')}catch(e){return null}}
 function put(v){try{localStorage.setItem('skin',v)}catch(e){}}
 S.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.className='sk';b.dataset.i=i;b.innerHTML='<img src="t/'+s[0]+'.jpg" alt="" loading="lazy"><div><b>'+(i+1)+'. '+s[1]+'</b><span>'+s[2]+'</span></div>';b.onclick=function(){go(i,true)};ls.appendChild(b)});
